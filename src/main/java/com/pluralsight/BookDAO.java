@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 public class BookDAO {
     private Connection jdbcConnection;
@@ -89,5 +90,17 @@ public class BookDAO {
         }
 
         return false;
+    }
+
+    public void deleteBook(int id){
+        String sql = "DELETE  FROM book WHERE id = ?";
+        try{
+            PreparedStatement statement = jdbcConnection.prepareStatement(sql);
+            statement.setInt(1, id);
+            statement.executeUpdate();
+            statement.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
     }
 }
